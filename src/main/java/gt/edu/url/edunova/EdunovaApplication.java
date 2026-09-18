@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class EdunovaApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(EdunovaApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(EdunovaApplication.class, args);
+    }
 
 }
