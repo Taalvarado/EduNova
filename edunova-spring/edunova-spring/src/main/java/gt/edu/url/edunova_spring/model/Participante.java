@@ -17,7 +17,7 @@ public class Participante {
     @Pattern(regexp = "[0-9]{8}", message = "El teléfono debe tener exactamente 8 dígitos, sin espacios ni guiones.")
     private String telefono;
 
-    // Constructor vacío 
+    // Constructor vacío (OBLIGATORIO)
     public Participante() {
     }
 
