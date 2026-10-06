@@ -2,28 +2,61 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>EduNova - Registro</title>
+    <title>EduNova - Registro de Participante</title>
+    <!-- Vinculamos la hoja de estilos basada en GuateEx -->
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-    <h1>Centro de Capacitación EduNova</h1>
-    <h2>Registro de Nuevo Participante</h2>
+    <div class="container">
+        <h2>Centro de Capacitación EduNova</h2>
+        <h3>Registro de Nuevo Participante</h3>
 
-    <form th:action="@{/participantes}" th:object="${participante}" method="post">
-        <div>
-            <label>Nombre completo:</label>
-            <input type="text" th:field="*{nombre}" required />
-        </div>
-        <div>
-            <label>Curso:</label>
-            <input type="text" th:field="*{curso}" required />
-        </div>
-        <div>
-            <label>Teléfono:</label>
-            <input type="text" th:field="*{telefono}" required />
-        </div>
-        <button type="submit">Guardar Participante</button>
-    </form>
-    <br>
-    <a th:href="@{/participantes}">Ver lista de participantes</a>
+        <!-- Importante: 'novalidate' desactiva la validación nativa del navegador para evaluar con Spring Boot -->
+        <form th:action="@{/participantes}" th:object="${participante}" method="post" novalidate>
+            
+            <!-- Resumen superior de errores dentro del formulario -->
+            <div class="resumen-errores" role="alert" th:if="${#fields.hasAnyErrors()}">
+                <p><strong>Por favor, corrige los siguientes errores antes de continuar:</strong></p>
+                <ul>
+                    <li th:each="error : ${#fields.allErrors()}" th:text="${error}">Error</li>
+                </ul>
+            </div>
+
+            <!-- Campo Nombre -->
+            <div class="campo-formulario">
+                <label for="nombre">Nombre completo:</label>
+                <input type="text" id="nombre" th:field="*{nombre}" aria-describedby="error-nombre"
+                       th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : ''" />
+                <p id="error-nombre" class="mensaje-error"
+                   th:if="${#fields.hasErrors('nombre')}"
+                   th:errors="*{nombre}">Error en el nombre</p>
+            </div>
+
+            <!-- Campo Curso -->
+            <div class="campo-formulario">
+                <label for="curso">Curso:</label>
+                <input type="text" id="curso" th:field="*{curso}" aria-describedby="error-curso"
+                       th:classappend="${#fields.hasErrors('curso')} ? 'is-invalid' : ''" />
+                <p id="error-curso" class="mensaje-error"
+                   th:if="${#fields.hasErrors('curso')}"
+                   th:errors="*{curso}">Error en el curso</p>
+            </div>
+
+            <!-- Campo Teléfono -->
+            <div class="campo-formulario">
+                <label for="telefono">Teléfono:</label>
+                <input type="text" id="telefono" th:field="*{telefono}" aria-describedby="error-telefono"
+                       th:classappend="${#fields.hasErrors('telefono')} ? 'is-invalid' : ''" />
+                <p id="error-telefono" class="mensaje-error"
+                   th:if="${#fields.hasErrors('telefono')}"
+                   th:errors="*{telefono}">Error en el teléfono</p>
+            </div>
+
+            <button type="submit">Guardar Participante</button>
+        </form>
+
+        <br>
+        <a th:href="@{/participantes}">Ver lista de participantes</a>
+    </div>
 </body>
 </html>
