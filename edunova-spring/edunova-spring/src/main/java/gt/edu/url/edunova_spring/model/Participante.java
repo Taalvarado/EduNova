@@ -5,7 +5,7 @@ public class Participante {
     private String curso;
     private String telefono;
 
-    // Constructor vacío 
+    // Constructor vacío (OBLIGATORIO)
     public Participante() {
     }
 
