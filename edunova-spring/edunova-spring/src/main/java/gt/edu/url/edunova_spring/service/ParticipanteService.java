@@ -1,24 +1,23 @@
 package gt.edu.url.edunova_spring.service;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.springframework.stereotype.Service;
 import gt.edu.url.edunova_spring.model.Participante;
+import gt.edu.url.edunova_spring.repository.ParticipanteRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ParticipanteService {
 
-    private final List<Participante> participantes = new ArrayList<>();
+    @Autowired
+    private ParticipanteRepository participanteRepository;
+
+    public List<Participante> obtenerTodos() {
+        return participanteRepository.findAll();
+    }
 
     public void guardar(Participante participante) {
-        participantes.add(participante);
-    }
-
-    public List<Participante> listarTodos() {
-        return participantes;
-    }
-
-    public int contar() {
-        return participantes.size();
+        participanteRepository.save(participante);
     }
 }
