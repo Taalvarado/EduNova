@@ -1,16 +1,16 @@
 package gt.edu.url.edunova_spring.controller;
 
-import gt.edu.url.edunova_spring.model.Participante;
-import gt.edu.url.edunova_spring.service.ParticipanteService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import gt.edu.url.edunova_spring.model.Participante;
+import gt.edu.url.edunova_spring.service.ParticipanteService;
 
 @Controller
 @RequestMapping("/participantes")
@@ -20,25 +20,32 @@ public class ParticipanteController {
     private ParticipanteService participanteService;
 
     @GetMapping
-    public String listarParticipantes(Model model) {
+    public String listar(Model model) {
         model.addAttribute("participantes", participanteService.listarTodos());
-        model.addAttribute("totalParticipantes", participanteService.contar());
-        return "lista"; // Apunta a lista.html
+        return "lista";
     }
 
     @GetMapping("/nuevo")
-    public String mostrarFormularioRegistro(Model model) {
+    public String nuevoFormulario(Model model) {
         model.addAttribute("participante", new Participante());
-        return "formulario"; 
+        return "formulario";
     }
 
     @PostMapping
-    public String guardarParticipante(@Valid @ModelAttribute("participante") Participante participante,
-                                      BindingResult result) {
-        if (result.hasErrors()) {
-            return "formulario"; // Vuelve a formulario.html si hay errores
-        }
+    public String guardar(@ModelAttribute("participante") Participante participante) {
         participanteService.guardar(participante);
+        return "redirect:/participantes";
+    }
+
+    @GetMapping("/{id}/editar")
+    public String editarFormulario(@PathVariable Long id, Model model) {
+        participanteService.buscarPorId(id).ifPresent(p -> model.addAttribute("participante", p));
+        return "formulario";
+    }
+
+    @PostMapping("/{id}/eliminar")
+    public String eliminar(@PathVariable Long id) {
+        participanteService.eliminar(id);
         return "redirect:/participantes";
     }
 }

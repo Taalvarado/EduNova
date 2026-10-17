@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "participantes")
+@Table(name = "participante")
 public class Participante {
 
     @Id
@@ -16,13 +16,17 @@ public class Participante {
 
     private String nombre;
     private String correo;
-    private String telefono;
+    private String departamento;
 
-    // Constructor vacío (Obligatorio para JPA)
     public Participante() {
     }
 
-    // Getters y Setters
+    public Participante(String nombre, String correo, String departamento) {
+        this.nombre = nombre;
+        this.correo = correo;
+        this.departamento = departamento;
+    }
+
     public Long getId() {
         return id;
     }
@@ -47,11 +51,11 @@ public class Participante {
         this.correo = correo;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public String getDepartamento() {
+        return departamento;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setDepartamento(String departamento) {
+        this.departamento = departamento;
     }
 }
