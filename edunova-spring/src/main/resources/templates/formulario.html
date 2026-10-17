@@ -2,60 +2,41 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>EduNova - Registro de Participante</title>
-    <!-- Vinculamos la hoja de estilos basada en GuateEx -->
+    <title>Formulario Participante - EduNova</title>
     <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
-    <div class="container">
-        <h2>Centro de Capacitación EduNova</h2>
-        <h3>Registro de Nuevo Participante</h3>
+    <div class="container container-sm">
+        <div class="header-bar" style="justify-content: center; text-align: center;">
+            <h2 class="title-stacked">
+                Formulario<br>
+                <span>de Participante</span>
+            </h2>
+        </div>
 
-        <form th:action="@{/participantes}" th:object="${participante}" method="post" novalidate>
-            
-            <!-- Resumen superior de errores dentro del formulario -->
-            <div class="resumen-errores" role="alert" th:if="${#fields.hasAnyErrors()}">
-                <p><strong>Por favor, corrige los siguientes errores antes de continuar:</strong></p>
-                <ul>
-                    <li th:each="error : ${#fields.allErrors()}" th:text="${error}">Error</li>
-                </ul>
+        <form th:action="@{/participantes}" th:object="${participante}" method="post">
+            <input type="hidden" th:field="*{id}" />
+
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" th:field="*{nombre}" required placeholder="Ingrese nombre completo">
             </div>
 
-            <!-- Campo Nombre -->
-            <div class="campo-formulario">
-                <label for="nombre">Nombre completo:</label>
-                <input type="text" id="nombre" th:field="*{nombre}" aria-describedby="error-nombre"
-                       th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : ''" />
-                <p id="error-nombre" class="mensaje-error"
-                   th:if="${#fields.hasErrors('nombre')}"
-                   th:errors="*{nombre}">Error en el nombre</p>
+            <div class="form-group">
+                <label for="correo">Correo:</label>
+                <input type="email" id="correo" th:field="*{correo}" required placeholder="correo@ejemplo.com">
             </div>
 
-            <!-- Campo Correo -->
-            <div class="campo-formulario">
-                <label for="correo">Correo electrónico:</label>
-                <input type="email" id="correo" th:field="*{correo}" aria-describedby="error-correo"
-                       th:classappend="${#fields.hasErrors('correo')} ? 'is-invalid' : ''" />
-                <p id="error-correo" class="mensaje-error"
-                   th:if="${#fields.hasErrors('correo')}"
-                   th:errors="*{correo}">Error en el correo</p>
+            <div class="form-group">
+                <label for="departamento">Departamento:</label>
+                <input type="text" id="departamento" th:field="*{departamento}" required placeholder="Ingrese departamento">
             </div>
 
-            <!-- Campo Teléfono -->
-            <div class="campo-formulario">
-                <label for="telefono">Teléfono:</label>
-                <input type="text" id="telefono" th:field="*{telefono}" aria-describedby="error-telefono"
-                       th:classappend="${#fields.hasErrors('telefono')} ? 'is-invalid' : ''" />
-                <p id="error-telefono" class="mensaje-error"
-                   th:if="${#fields.hasErrors('telefono')}"
-                   th:errors="*{telefono}">Error en el teléfono</p>
+            <div class="actions-bar">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a th:href="@{/participantes}" class="btn btn-secondary">Cancelar</a>
             </div>
-
-            <button type="submit">Guardar Participante</button>
         </form>
-
-        <br>
-        <a th:href="@{/participantes}">Ver lista de participantes</a>
     </div>
 </body>
 </html>
