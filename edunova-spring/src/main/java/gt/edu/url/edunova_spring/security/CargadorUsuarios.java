@@ -18,8 +18,8 @@ public class CargadorUsuarios implements CommandLineRunner {
 
     public CargadorUsuarios(UsuarioRepository usuarioRepository,
                             PasswordEncoder passwordEncoder,
-                            @Value("${app.admin.password}") String passwordAdmin,
-                            @Value("${app.entrenador.password}") String passwordEntrenador) {
+                            @Value("${ADMIN_PASSWORD:Clave-Admin-2026}") String passwordAdmin,
+                            @Value("${ENTRENADOR_PASSWORD:Clave-Entr-2026}") String passwordEntrenador) {
         this.usuarioRepository = usuarioRepository;
         this.passwordEncoder = passwordEncoder;
         this.passwordAdmin = passwordAdmin;
