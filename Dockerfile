@@ -1,5 +1,5 @@
-# Etapa de compilación
-FROM eclipse-temurin:17-jdk-alpine AS build
+# Etapa de compilación con Java 25
+FROM eclipse-temurin:25-jdk-alpine AS build
 WORKDIR /app
 
 # Copiamos todo el repositorio
@@ -14,8 +14,8 @@ RUN chmod +x mvnw
 # Compilamos el proyecto con Maven Wrapper
 RUN ./mvnw clean package -DskipTests
 
-# Etapa de ejecución final
-FROM eclipse-temurin:17-jre-alpine
+# Etapa de ejecución final con Java 25 (JRE)
+FROM eclipse-temurin:25-jre-alpine
 WORKDIR /app
 
 # Copiamos el JAR generado desde la subcarpeta hacia la raíz del contenedor
