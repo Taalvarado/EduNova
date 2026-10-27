@@ -8,6 +8,9 @@ COPY . .
 # Entramos a la subcarpeta donde está el proyecto Spring Boot
 WORKDIR /app/edunova-spring/edunova-spring
 
+# Damos permisos de ejecución al Maven Wrapper
+RUN chmod +x mvnw
+
 # Compilamos el proyecto con Maven Wrapper
 RUN ./mvnw clean package -DskipTests
 
